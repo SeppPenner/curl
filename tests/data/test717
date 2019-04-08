@@ -2,11 +2,10 @@
 <info>
 <keywords>
 HTTP
-HTTP GET
 SOCKS5
+all_proxy
 </keywords>
 </info>
-
 #
 # Server-side
 <reply>
@@ -24,9 +23,11 @@ Funny-head: yesyes
 
 -foo-
 </data>
+# method 2 is SOCKS5 asking for user+password
 <servercmd>
-backend %HOSTIP
-backendport %HTTPPORT
+method 2
+user uz3r
+password p4ssworm
 </servercmd>
 </reply>
 
@@ -34,14 +35,17 @@ backendport %HTTPPORT
 # Client-side
 <client>
 <server>
-http
 socks5
+http
 </server>
+<setenv>
+all_proxy=socks5://uz3r:p4ssworm@%HOSTIP:%SOCKSPORT
+</setenv>
  <name>
-HTTP GET via SOCKS5 proxy
+SOCKS5 proxy auth
  </name>
  <command>
---socks5 %HOSTIP:%SOCKSPORT http://%HOSTIP:%HTTPPORT/701
+http://%HOSTIP:%HTTPPORT/717
 </command>
 </client>
 
@@ -52,7 +56,7 @@ HTTP GET via SOCKS5 proxy
 ^User-Agent:.*
 </strip>
 <protocol>
-GET /701 HTTP/1.1
+GET /717 HTTP/1.1
 Host: %HOSTIP:%HTTPPORT
 Accept: */*
 
