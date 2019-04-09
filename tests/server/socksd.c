@@ -466,7 +466,7 @@ static curl_socket_t sockit(curl_socket_t fd)
   unsigned char rep = 0;
   unsigned char *address;
   unsigned short socksport;
-  curl_socket_t connfd;
+  curl_socket_t connfd = CURL_SOCKET_BAD;
   unsigned short s5port;
 
   getconfig();
